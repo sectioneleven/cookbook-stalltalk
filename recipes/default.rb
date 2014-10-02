@@ -101,7 +101,7 @@ template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy/product
     project_dir: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk",
     virtualenv: "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk",
     wsgi_module: "stalltalk.wsgi:application",
-    socket_file: "/tmp/stalltalk.sock",
+    socket_file: node["stalltalk"]["uwsgi"]["socket_file"],
     uwsgi_logfile: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/uwsgi.log",
     num_process: 2,
     })
@@ -129,5 +129,17 @@ include_recipe "nginx"
 
 nginx_site 'default' do
   enable false
-  notifies :reload, 'service[nginx]'
 end
+
+template "/etc/nginx/sites-available/stalltalk" do
+  source "nginx-site.erb"
+  variables({
+    uwsgi_socket_file: node["stalltalk"]["uwsgi"]["socket_file"],
+    server_names: node["stalltalk"]["domain_names"],
+    access_log_file: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/access.log",
+    error_log_file: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/error.log",
+    static_media_root: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/stalltalk/public",
+    })
+end
+
+nginx_site 'stalltalk'
