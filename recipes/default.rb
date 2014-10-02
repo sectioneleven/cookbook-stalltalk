@@ -86,3 +86,11 @@ bash "install requirements" do
     pip install -r /home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/requirements.txt --log=/home/#{ node["stalltalk"]["user"]}/pip.log
   EOH
 end
+
+
+include_recipe "nginx"
+
+nginx_site 'default' do
+  enable false
+  notifies :reload, 'service[nginx]'
+end
