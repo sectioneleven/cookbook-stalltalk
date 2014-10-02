@@ -17,3 +17,5 @@ bin/*
 .bundle/*
 
 .gems/
+.kitchen/
+.kitchen.local.yml
