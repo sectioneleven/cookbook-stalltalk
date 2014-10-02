@@ -107,6 +107,24 @@ template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy/product
     })
 end
 
+template "/etc/init/stalltalk.conf" do
+  source "stalltalk-upstart.conf.erb"
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+  variables({
+    user: node["stalltalk"]["user"],
+    group: node["stalltalk"]["group"],
+    uwsgi_bin: "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/uwsgi",
+    uwsgi_conf: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy/production.ini",
+    })
+end
+
+service "stalltalk" do
+  provider Chef::Provider::Service::Upstart
+  supports restart: true, status: true
+  action [:enable, :start]
+end
+
 include_recipe "nginx"
 
 nginx_site 'default' do
