@@ -6,3 +6,5 @@ description      'Installs/Configures stalltalk'
 long_description 'Installs/Configures stalltalk'
 version          '0.1.0'
 
+depends 'user'
+depends 'ssh-util'
