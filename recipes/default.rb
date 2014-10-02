@@ -87,6 +87,25 @@ bash "install requirements" do
   EOH
 end
 
+directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+end
+
+template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy/production.ini" do
+  source "production-uwsgi.ini.erb"
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+  variables({
+    user: node["stalltalk"]["user"],
+    project_dir: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk",
+    virtualenv: "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk",
+    wsgi_module: "stalltalk.wsgi:application",
+    socket_file: "/tmp/stalltalk.sock",
+    uwsgi_logfile: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/uwsgi.log",
+    num_process: 2,
+    })
+end
 
 include_recipe "nginx"
 

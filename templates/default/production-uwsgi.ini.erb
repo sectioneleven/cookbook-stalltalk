@@ -1,0 +1,18 @@
+[uwsgi]
+uid=<%= @user %>
+chdir=<%= @project_dir %>
+virtualenv=<%= @virtualenv %>
+module=<%= @wsgi_module %>
+
+socket=<%= @socket_file %>
+chmod-socket=666
+logto2=<%= @uwsgi_logfile %>
+protocol=uwsgi
+processes=<%= @num_process %>
+
+master
+harakiri=60
+harakiri-verbose
+
+die-on-term
+vacuum
