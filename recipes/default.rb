@@ -40,3 +40,49 @@ ssh_util_config "github.com" do
   })
   user node["stalltalk"]["user"]
 end
+
+include_recipe "python"
+
+directory "/home/#{ node["stalltalk"]["user"] }/.virtualenvs" do
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+end
+
+python_virtualenv "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk" do
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+end
+
+directory "/home/#{ node["stalltalk"]["user"] }/Projects" do
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+end
+
+include_recipe "git"
+
+git "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk" do
+  repository node["stalltalk"]["git"]["repository"]
+  reference node["stalltalk"]["git"]["reference"]
+  user node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+  action :sync
+end
+
+directory "/home/#{ node["stalltalk"]["user"] }/.pip_download_cache" do
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+end
+
+%w[libpq-dev].each do |pkg|
+  package pkg
+end
+
+bash "install requirements" do
+  user node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+  environment({"PIP_DOWNLOAD_CACHE" => "/home/#{ node["stalltalk"]["user"] }/.pip_download_cache"})
+  code <<-EOH
+    source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
+    pip install -r /home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/requirements.txt --log=/home/#{ node["stalltalk"]["user"]}/pip.log
+  EOH
+end
