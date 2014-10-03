@@ -23,14 +23,14 @@ file "/home/#{ node["stalltalk"]["user"] }/.ssh/github-id_rsa" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   mode 0600
-  content Chef::EncryptedDataBagItem.load("ssh_keys", "github")["private_key"]
+  content Chef::EncryptedDataBagItem.load("ssh_keys", "github")[node.environment]["private_key"]
 end
 
 file "/home/#{ node["stalltalk"]["user"] }/.ssh/github-id_rsa.pub" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   mode 0600
-  content Chef::EncryptedDataBagItem.load("ssh_keys", "github")["public_key"]
+  content Chef::EncryptedDataBagItem.load("ssh_keys", "github")[node.environment]["public_key"]
 end
 
 ssh_util_config "github.com" do
