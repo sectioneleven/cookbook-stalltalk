@@ -80,7 +80,7 @@ directory "/home/#{ node["stalltalk"]["user"] }/.pip_download_cache" do
   group node["stalltalk"]["group"]
 end
 
-%w[libpq-dev].each do |pkg|
+%w[libpq-dev postgis].each do |pkg|
   package pkg
 end
 
