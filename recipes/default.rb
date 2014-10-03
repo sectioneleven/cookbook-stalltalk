@@ -41,6 +41,13 @@ ssh_util_config "github.com" do
   user node["stalltalk"]["user"]
 end
 
+bash "chmod_config" do
+  code <<-EOH
+    chmod 600 /home/#{ node["stalltalk"]["user"] }/.ssh/config
+    EOH
+end
+
+
 include_recipe "python"
 
 directory "/home/#{ node["stalltalk"]["user"] }/.virtualenvs" do
