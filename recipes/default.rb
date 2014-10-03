@@ -2,7 +2,7 @@
 # Cookbook Name:: stalltalk
 # Recipe:: default
 #
-# Copyright (C) 2014 YOUR_NAME
+# Copyright (C) 2014 Lemuel Formacil
 #
 # All rights reserved - Do Not Redistribute
 #

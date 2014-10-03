@@ -1,6 +1,6 @@
 name             'stalltalk'
-maintainer       'YOUR_NAME'
-maintainer_email 'YOUR_EMAIL'
+maintainer       'Lemuel Formacil'
+maintainer_email 'lemuelf@sectioneleven.org'
 license          'All rights reserved'
 description      'Installs/Configures stalltalk'
 long_description 'Installs/Configures stalltalk'
