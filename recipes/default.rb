@@ -87,6 +87,27 @@ bash "install requirements" do
   EOH
 end
 
+template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/.env" do
+  source "env.erb"
+  owner node["stalltalk"]["user"]
+  group node["stalltalk"]["group"]
+  variables({
+    db_host: node["stalltalk"]["db_host"],
+    db_name: node["stalltalk"]["db_name"],
+    db_user: node["stalltalk"]["db_user"],
+    db_pass: node["stalltalk"]["db_pass"],
+    email_use_tls: node["stalltalk"]["email_use_tls"],
+    email_host: node["stalltalk"]["email_host"],
+    email_host_user: node["stalltalk"]["email_host_user"],
+    email_host_password: node["stalltalk"]["email_host_password"],
+    email_port: node["stalltalk"]["email_port"],
+    raven_dsn: node["stalltalk"]["raven_dsn"],
+    google_analytics_tracking_id: node["stalltalk"]["google_analytics_tracking_id"],
+    rfp_notification_email_to: node["stalltalk"]["rfp_notification_email_to"],
+    property_notification_email_to: node["stalltalk"]["property_notification_email_to"],
+  })
+end
+
 directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
