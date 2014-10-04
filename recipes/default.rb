@@ -137,6 +137,16 @@ bash "install bower packages" do
 end
 
 
+bash "collectstatic" do
+  user node["stalltalk"]["user"]
+  cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
+  code <<-EOH
+    source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
+    ./manage.py collectstatic --noinput
+    EOH
+end
+
+
 directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
