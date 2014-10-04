@@ -132,7 +132,7 @@ bash "install bower packages" do
   cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
   code <<-EOH
     source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
-    ./manage.py bower_install
+    ./manage.py bower_install -- --config.interactive=false
     EOH
 end
 
