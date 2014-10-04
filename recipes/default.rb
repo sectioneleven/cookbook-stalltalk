@@ -118,6 +118,15 @@ end
 
 include_recipe "nodejs"
 
+bash "install node packages" do
+  user node["stalltalk"]["user"]
+  environment({"HOME" => "/home/#{ node["stalltalk"]["user"] }"})
+  cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
+  code <<-EOH
+    npm install
+    EOH
+end
+
 
 directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
   owner node["stalltalk"]["user"]
