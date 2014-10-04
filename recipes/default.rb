@@ -115,6 +115,10 @@ template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/.env" do
   })
 end
 
+
+include_recipe "nodejs"
+
+
 directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
