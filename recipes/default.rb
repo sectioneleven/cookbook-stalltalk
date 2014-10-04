@@ -127,6 +127,15 @@ bash "install node packages" do
     EOH
 end
 
+bash "install bower packages" do
+  user node["stalltalk"]["user"]
+  cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
+  code <<-EOH
+    source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
+    ./manage.py bower_install
+    EOH
+end
+
 
 directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
   owner node["stalltalk"]["user"]
