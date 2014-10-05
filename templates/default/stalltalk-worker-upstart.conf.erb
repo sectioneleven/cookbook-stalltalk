@@ -1,0 +1,20 @@
+description "Stall Talk worker"
+
+respawn
+respawn limit 10 5
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+setuid <%= @uid %>
+setgid <%= @gid %>
+
+chdir <%= @project_path %>
+
+script
+  if [ -f <%= @project_env_file %> ]; then
+    . <%= @project_env_file %>
+    export $(cut -d= -f1 <%= @project_env_file %>)
+  fi
+  <%= @project_env_path %>/bin/celery -A stalltalk worker -l <%= @log_level %>
+end script

@@ -17,6 +17,7 @@ suites:
     run_list:
       - recipe[apt]
       - recipe[stalltalk::default]
+      - recipe[stalltalk::worker]
     attributes:
     provisioner:
       solo_rb:
