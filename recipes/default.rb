@@ -7,26 +7,29 @@
 # All rights reserved - Do Not Redistribute
 #
 
+user_home = "/home/#{node["stalltalk"]["user"]}"
+
+
 user_account node["stalltalk"]["user"] do
   ssh_keygen false
   ssh_keys node["stalltalk"]["authorized_keys"]
 end
 
-directory "/home/#{ node["stalltalk"]["user"] }/.ssh" do
+directory "#{user_home}/.ssh" do
   action :create
   user node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   mode 0700
 end
 
-file "/home/#{ node["stalltalk"]["user"] }/.ssh/github-id_rsa" do
+file "#{user_home}/.ssh/github-id_rsa" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   mode 0600
   content Chef::EncryptedDataBagItem.load("ssh_keys", "github")[node.chef_environment]["private_key"]
 end
 
-file "/home/#{ node["stalltalk"]["user"] }/.ssh/github-id_rsa.pub" do
+file "#{user_home}/.ssh/github-id_rsa.pub" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   mode 0600
@@ -35,7 +38,7 @@ end
 
 ssh_util_config "github.com" do
   options({
-    "IdentityFile" => "/home/#{ node["stalltalk"]["user"] }/.ssh/github-id_rsa",
+    "IdentityFile" => "#{user_home}/.ssh/github-id_rsa",
     "StrictHostKeyChecking" => "no",
   })
   user node["stalltalk"]["user"]
@@ -43,14 +46,14 @@ end
 
 bash "chmod_config" do
   code <<-EOH
-    chmod 600 /home/#{ node["stalltalk"]["user"] }/.ssh/config
+    chmod 600 #{user_home}/.ssh/config
     EOH
 end
 
 
 include_recipe "python"
 
-directory "/home/#{ node["stalltalk"]["user"] }/.virtualenvs" do
+directory "#{user_home}/.virtualenvs" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
 end
@@ -60,7 +63,7 @@ python_virtualenv node["stalltalk"]["virtualenv_path"] do
   group node["stalltalk"]["group"]
 end
 
-directory "/home/#{ node["stalltalk"]["user"] }/Projects" do
+directory "#{user_home}/Projects" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
 end
@@ -75,7 +78,7 @@ git node["stalltalk"]["project_path"] do
   action :sync
 end
 
-directory "/home/#{ node["stalltalk"]["user"] }/.pip_download_cache" do
+directory "#{user_home}/.pip_download_cache" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
 end
@@ -87,10 +90,10 @@ end
 bash "install requirements" do
   user node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
-  environment({"PIP_DOWNLOAD_CACHE" => "/home/#{ node["stalltalk"]["user"] }/.pip_download_cache"})
+  environment({"PIP_DOWNLOAD_CACHE" => "#{user_home}/.pip_download_cache"})
   code <<-EOH
     source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
-    pip install -r #{node["stalltalk"]["project_path"]}/requirements.txt --log=/home/#{ node["stalltalk"]["user"]}/pip.log
+    pip install -r #{node["stalltalk"]["project_path"]}/requirements.txt --log=#{user_home}/pip.log
   EOH
 end
 
@@ -120,7 +123,7 @@ include_recipe "nodejs"
 
 bash "install node packages" do
   user node["stalltalk"]["user"]
-  environment({"HOME" => "/home/#{ node["stalltalk"]["user"] }"})
+  environment({"HOME" => user_home})
   cwd node["stalltalk"]["project_path"]
   code <<-EOH
     npm install
