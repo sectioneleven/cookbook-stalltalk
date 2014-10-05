@@ -4,6 +4,10 @@ default["stalltalk"]["group"] = "stalltalk"
 # SSH
 default["stalltalk"]["authorized_keys"] = []
 
+# PROJECT
+default["stalltalk"]["project_path"] = "/home/#{node["stalltalk"]["user"]}/Projects/stalltalk"
+default["stalltalk"]["virtualenv_path"] = "/home/#{node["stalltalk"]["user"]}/.virtualenvs/stalltalk"
+
 # REPOS
 default["stalltalk"]["git"]["repository"] = "git@github.com:sectioneleven/stalltalk.git"
 default["stalltalk"]["git"]["reference"] = "master"

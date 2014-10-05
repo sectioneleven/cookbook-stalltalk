@@ -55,7 +55,7 @@ directory "/home/#{ node["stalltalk"]["user"] }/.virtualenvs" do
   group node["stalltalk"]["group"]
 end
 
-python_virtualenv "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk" do
+python_virtualenv node["stalltalk"]["virtualenv_path"] do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
 end
@@ -67,7 +67,7 @@ end
 
 include_recipe "git"
 
-git "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk" do
+git node["stalltalk"]["project_path"] do
   repository node["stalltalk"]["git"]["repository"]
   reference node["stalltalk"]["git"]["reference"]
   user node["stalltalk"]["user"]
@@ -89,12 +89,12 @@ bash "install requirements" do
   group node["stalltalk"]["group"]
   environment({"PIP_DOWNLOAD_CACHE" => "/home/#{ node["stalltalk"]["user"] }/.pip_download_cache"})
   code <<-EOH
-    source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
-    pip install -r /home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/requirements.txt --log=/home/#{ node["stalltalk"]["user"]}/pip.log
+    source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
+    pip install -r #{node["stalltalk"]["project_path"]}/requirements.txt --log=/home/#{ node["stalltalk"]["user"]}/pip.log
   EOH
 end
 
-template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/.env" do
+template "#{node["stalltalk"]["project_path"]}/.env" do
   source "env.erb"
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
@@ -121,7 +121,7 @@ include_recipe "nodejs"
 bash "install node packages" do
   user node["stalltalk"]["user"]
   environment({"HOME" => "/home/#{ node["stalltalk"]["user"] }"})
-  cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
+  cwd node["stalltalk"]["project_path"]
   code <<-EOH
     npm install
     EOH
@@ -129,9 +129,9 @@ end
 
 bash "install bower packages" do
   user node["stalltalk"]["user"]
-  cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
+  cwd node["stalltalk"]["project_path"]
   code <<-EOH
-    source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
+    source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
     ./manage.py bower_install -- --config.interactive=false
     EOH
 end
@@ -139,30 +139,30 @@ end
 
 bash "collectstatic" do
   user node["stalltalk"]["user"]
-  cwd "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk"
+  cwd node["stalltalk"]["project_path"]
   code <<-EOH
-    source /home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/activate
+    source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
     ./manage.py collectstatic --noinput
     EOH
 end
 
 
-directory "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy" do
+directory "#{node["stalltalk"]["project_path"]}/deploy" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
 end
 
-template "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy/production.ini" do
+template "#{node["stalltalk"]["project_path"]}/deploy/production.ini" do
   source "production-uwsgi.ini.erb"
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   variables({
     user: node["stalltalk"]["user"],
-    project_dir: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk",
-    virtualenv: "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk",
+    project_dir: node["stalltalk"]["project_path"],
+    virtualenv: node["stalltalk"]["virtualenv_path"],
     wsgi_module: "stalltalk.wsgi:application",
     socket_file: node["stalltalk"]["uwsgi"]["socket_file"],
-    uwsgi_logfile: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/uwsgi.log",
+    uwsgi_logfile: "#{node["stalltalk"]["project_path"]}/uwsgi.log",
     num_process: 2,
     })
 end
@@ -174,8 +174,8 @@ template "/etc/init/stalltalk.conf" do
   variables({
     user: node["stalltalk"]["user"],
     group: node["stalltalk"]["group"],
-    uwsgi_bin: "/home/#{ node["stalltalk"]["user"] }/.virtualenvs/stalltalk/bin/uwsgi",
-    uwsgi_conf: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/deploy/production.ini",
+    uwsgi_bin: "#{node["stalltalk"]["virtualenv_path"]}/bin/uwsgi",
+    uwsgi_conf: "#{node["stalltalk"]["project_path"]}/deploy/production.ini",
     })
 end
 
@@ -196,9 +196,9 @@ template "/etc/nginx/sites-available/stalltalk" do
   variables({
     uwsgi_socket_file: node["stalltalk"]["uwsgi"]["socket_file"],
     server_names: node["stalltalk"]["domain_names"],
-    access_log_file: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/access.log",
-    error_log_file: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/error.log",
-    static_media_root: "/home/#{ node["stalltalk"]["user"] }/Projects/stalltalk/stalltalk/public",
+    access_log_file: "#{node["stalltalk"]["project_path"]}/access.log",
+    error_log_file: "#{node["stalltalk"]["project_path"]}/error.log",
+    static_media_root: "#{node["stalltalk"]["project_path"]}/stalltalk/public",
     })
 end
 
