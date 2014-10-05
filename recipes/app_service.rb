@@ -23,7 +23,7 @@ template "#{node["stalltalk"]["project_path"]}/deploy/production.ini" do
     project_dir: node["stalltalk"]["project_path"],
     virtualenv: node["stalltalk"]["virtualenv_path"],
     wsgi_module: "stalltalk.wsgi:application",
-    socket_file: node["stalltalk"]["uwsgi"]["socket_file"],
+    socket: node["stalltalk"]["uwsgi"]["socket"],
     uwsgi_logfile: "#{node["stalltalk"]["project_path"]}/uwsgi.log",
     num_process: 2,
     })

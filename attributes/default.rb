@@ -13,7 +13,8 @@ default["stalltalk"]["git"]["repository"] = "git@github.com:sectioneleven/stallt
 default["stalltalk"]["git"]["reference"] = "master"
 
 # UWSGI
-default["stalltalk"]["uwsgi"]["socket_file"] = "/tmp/stalltalk.sock"
+default["stalltalk"]["uwsgi"]["socket"] = "/tmp/stalltalk.sock"
+default["stalltalk"]["uwsgi"]["socket_type"] = "unix"  # or tcp
 
 # NGINX
 default["stalltalk"]["domain_names"] = ["stalltalk.net"]

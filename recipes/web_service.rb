@@ -16,7 +16,8 @@ end
 template "/etc/nginx/sites-available/stalltalk" do
   source "nginx-site.erb"
   variables({
-    uwsgi_socket_file: node["stalltalk"]["uwsgi"]["socket_file"],
+    uwsgi_socket: node["stalltalk"]["uwsgi"]["socket"],
+    uwsgi_socket_type: node["stalltalk"]["uwsgi"]["socket_type"],
     server_names: node["stalltalk"]["domain_names"],
     access_log_file: "#{node["stalltalk"]["project_path"]}/access.log",
     error_log_file: "#{node["stalltalk"]["project_path"]}/error.log",

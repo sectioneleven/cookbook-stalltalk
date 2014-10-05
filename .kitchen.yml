@@ -19,6 +19,10 @@ suites:
       - recipe[stalltalk::default]
       - recipe[stalltalk::worker]
     attributes:
+      stalltalk:
+        uwsgi:
+          socket: 127.0.0.1:8080
+          socket_type: tcp
     provisioner:
       solo_rb:
         environment: testing

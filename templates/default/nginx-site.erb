@@ -1,5 +1,5 @@
 upstream stalltalk {
-    server unix:<%= @uwsgi_socket_file %>;
+    server <%= "unix:" if @uwsgi_socket_type == "unix" %><%= @uwsgi_socket %>;
 }
 
 server {
