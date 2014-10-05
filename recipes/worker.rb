@@ -23,5 +23,5 @@ end
 service "stalltalk-worker" do
   provider Chef::Provider::Service::Upstart
   supports restart: true, status: true
-  action [:nothing]
+  action [:enable, :start]
 end
