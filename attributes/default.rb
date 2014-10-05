@@ -1,15 +1,20 @@
 default["stalltalk"]["user"] = "stalltalk"
 default["stalltalk"]["group"] = "stalltalk"
 
+# SSH
 default["stalltalk"]["authorized_keys"] = []
 
+# REPOS
 default["stalltalk"]["git"]["repository"] = "git@github.com:sectioneleven/stalltalk.git"
 default["stalltalk"]["git"]["reference"] = "master"
 
+# UWSGI
 default["stalltalk"]["uwsgi"]["socket_file"] = "/tmp/stalltalk.sock"
 
+# NGINX
 default["stalltalk"]["domain_names"] = ["stalltalk.net"]
 
+# ENV
 default["stalltalk"]["db_host"] = ""
 default["stalltalk"]["db_name"] = ""
 default["stalltalk"]["db_user"] = ""
