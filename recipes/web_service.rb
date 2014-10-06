@@ -13,9 +13,10 @@ nginx_site 'default' do
   enable false
 end
 
-template "/etc/nginx/sites-available/stalltalk" do
+template "/etc/nginx/sites-available/#{node["stalltalk"]["project_name"]}" do
   source "nginx-site.erb"
   variables({
+    upstream_name: node["stalltalk"]["project_name"],
     uwsgi_socket: node["stalltalk"]["uwsgi"]["socket"],
     uwsgi_socket_type: node["stalltalk"]["uwsgi"]["socket_type"],
     server_names: node["stalltalk"]["domain_names"],
@@ -25,4 +26,4 @@ template "/etc/nginx/sites-available/stalltalk" do
     })
 end
 
-nginx_site 'stalltalk'
+nginx_site node["stalltalk"]["project_name"]

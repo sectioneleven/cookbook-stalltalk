@@ -1,4 +1,4 @@
-upstream stalltalk {
+upstream <%= @upstream_name %> {
     server <%= "unix:" if @uwsgi_socket_type == "unix" %><%= @uwsgi_socket %>;
 }
 
@@ -36,6 +36,6 @@ server {
     }
 
     location / {
-        uwsgi_pass stalltalk;
+        uwsgi_pass <%= @upstream_name %>;
     }
 }

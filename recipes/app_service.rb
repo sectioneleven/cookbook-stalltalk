@@ -29,11 +29,12 @@ template "#{node["stalltalk"]["project_path"]}/deploy/production.ini" do
     })
 end
 
-template "/etc/init/stalltalk.conf" do
+template "/etc/init/#{node["stalltalk"]["project_name"]}.conf" do
   source "stalltalk-upstart.conf.erb"
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   variables({
+    service_name: node["stalltalk"]["project_name"],
     user: node["stalltalk"]["user"],
     group: node["stalltalk"]["group"],
     uwsgi_bin: "#{node["stalltalk"]["virtualenv_path"]}/bin/uwsgi",
@@ -41,7 +42,7 @@ template "/etc/init/stalltalk.conf" do
     })
 end
 
-service "stalltalk" do
+service node["stalltalk"]["project_name"] do
   provider Chef::Provider::Service::Upstart
   supports restart: true, status: true
   action [:enable, :start]

@@ -5,15 +5,16 @@ default["stalltalk"]["group"] = "stalltalk"
 default["stalltalk"]["authorized_keys"] = []
 
 # PROJECT
-default["stalltalk"]["project_path"] = "/home/#{node["stalltalk"]["user"]}/Projects/stalltalk"
-default["stalltalk"]["virtualenv_path"] = "/home/#{node["stalltalk"]["user"]}/.virtualenvs/stalltalk"
+default["stalltalk"]["project_name"] = "stalltalk"
+default["stalltalk"]["project_path"] = "/home/#{node["stalltalk"]["user"]}/Projects/#{node["stalltalk"]["project_name"]}"
+default["stalltalk"]["virtualenv_path"] = "/home/#{node["stalltalk"]["user"]}/.virtualenvs/#{node["stalltalk"]["project_name"]}"
 
 # REPOS
 default["stalltalk"]["git"]["repository"] = "git@github.com:sectioneleven/stalltalk.git"
 default["stalltalk"]["git"]["reference"] = "master"
 
 # UWSGI
-default["stalltalk"]["uwsgi"]["socket"] = "/tmp/stalltalk.sock"
+default["stalltalk"]["uwsgi"]["socket"] = "/tmp/#{node["stalltalk"]["project_name"]}.sock"
 default["stalltalk"]["uwsgi"]["socket_type"] = "unix"  # or tcp
 
 # NGINX
@@ -26,7 +27,7 @@ default["stalltalk"]["db_user"] = ""
 default["stalltalk"]["db_pass"] = ""
 default["stalltalk"]["email_use_tls"] = "True"
 default["stalltalk"]["email_host"] = "smtp.gmail.com"
-default["stalltalk"]["email_host_user"] = "admin@secioneleven.org"
+default["stalltalk"]["email_host_user"] = "admin@sectioneleven.org"
 default["stalltalk"]["email_host_password"] = ""
 default["stalltalk"]["email_port"] = 587
 default["stalltalk"]["raven_dsn"] = ""
