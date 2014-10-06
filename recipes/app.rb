@@ -61,6 +61,7 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   variables({
+    site_id: node["stalltalk"]["site_id"],
     allowed_hosts: node["stalltalk"]["allowed_hosts"],
     db_host: node["stalltalk"]["db_host"],
     db_name: node["stalltalk"]["db_name"],

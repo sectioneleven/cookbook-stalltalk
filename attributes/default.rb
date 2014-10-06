@@ -21,6 +21,7 @@ default["stalltalk"]["uwsgi"]["socket_type"] = "unix"  # or tcp
 default["stalltalk"]["domain_names"] = ["stalltalk.net"]
 
 # ENV
+default["stalltalk"]["site_id"] = 1
 default["stalltalk"]["allowed_hosts"] = nil
 default["stalltalk"]["db_host"] = ""
 default["stalltalk"]["db_name"] = ""
