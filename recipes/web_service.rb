@@ -24,6 +24,7 @@ template "/etc/nginx/sites-available/#{node["stalltalk"]["project_name"]}" do
     error_log_file: "#{node["stalltalk"]["project_path"]}/error.log",
     static_media_root: "#{node["stalltalk"]["project_path"]}/stalltalk/public",
     })
+  notifies :reload, "service[nginx]"
 end
 
 nginx_site node["stalltalk"]["project_name"]
