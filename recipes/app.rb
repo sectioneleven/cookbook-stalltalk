@@ -61,6 +61,7 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
   variables({
+    allowed_hosts: node["stalltalk"]["allowed_hosts"],
     db_host: node["stalltalk"]["db_host"],
     db_name: node["stalltalk"]["db_name"],
     db_user: node["stalltalk"]["db_user"],
@@ -91,6 +92,7 @@ end
 
 bash "install bower packages" do
   user node["stalltalk"]["user"]
+  environment({"HOME" => user_home})
   cwd node["stalltalk"]["project_path"]
   code <<-EOH
     source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
