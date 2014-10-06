@@ -76,6 +76,8 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
     google_analytics_tracking_id: node["stalltalk"]["google_analytics_tracking_id"],
     rfp_notification_email_to: node["stalltalk"]["rfp_notification_email_to"],
     property_notification_email_to: node["stalltalk"]["property_notification_email_to"],
+    celery_redis_host: node["stalltalk"]["celery_redis_host"],
+    celery_redis_port: node["stalltalk"]["celery_redis_port"],
   })
 end
 

@@ -36,3 +36,5 @@ default["stalltalk"]["raven_dsn"] = ""
 default["stalltalk"]["google_analytics_tracking_id"] = "UA-45590724-1"
 default["stalltalk"]["rfp_notification_email_to"] = []
 default["stalltalk"]["property_notification_email_to"] = []
+default["stalltalk"]["celery_redis_host"] = "127.0.0.1"
+default["stalltalk"]["celery_redis_port"] = 6379
