@@ -1,0 +1,26 @@
+{
+  "name": "stalltalk-app-server",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "redisio": {
+      "default_settings": {
+        "job_control": "upstart"
+      }
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[apt]",
+    "recipe[redisio]",
+    "recipe[redisio::enable]",
+    "recipe[stalltalk]",
+    "recipe[stalltalk::worker]"
+  ],
+  "env_run_lists": {
+
+  }
+}

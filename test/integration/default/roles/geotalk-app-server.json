@@ -1,0 +1,22 @@
+{
+  "name": "geotalk-app-server",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "stalltalk": {
+      "project_name": "geotalk",
+      "domain_names": ["geo-talk.com"]
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[apt]",
+    "recipe[stalltalk]"
+  ],
+  "env_run_lists": {
+
+  }
+}

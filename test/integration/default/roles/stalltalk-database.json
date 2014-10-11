@@ -1,0 +1,33 @@
+{
+  "name": "stalltalk-database",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+
+  },
+  "override_attributes": {
+    "postgresql": {
+      "enable_pgdg_apt": true,
+      "version": "9.3",
+      "server": {
+        "packages": [
+          "postgresql-9.3",
+          "postgresql-9.3-postgis-2.1"
+        ]
+      },
+      "contrib": {
+        "extensions": [
+          "postgis",
+          "postgis_topology"
+        ]
+      }
+    }
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[stalltalk::database]"
+  ],
+  "env_run_lists": {
+
+  }
+}

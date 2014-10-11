@@ -1,0 +1,13 @@
+{
+  "name": "testing",
+  "description": "",
+  "chef_type": "chef_environment",
+  "json_class": "Chef::Environment",
+  "default_attributes": {
+    "stalltalk": {
+      "db_host": "127.0.0.1",
+      "db_name": "geotalk",
+      "db_user": "geotalk"
+    }
+  }
+}

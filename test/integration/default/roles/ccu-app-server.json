@@ -1,0 +1,23 @@
+{
+  "name": "ccu-app-server",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "stalltalk": {
+      "project_name": "ccu",
+      "domain_names": ["consumerconnectionusa.com"],
+      "site_id": 3
+    }
+  },
+  "override_attributes": {
+
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[apt]",
+    "recipe[stalltalk]"
+  ],
+  "env_run_lists": {
+
+  }
+}
