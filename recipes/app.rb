@@ -82,6 +82,24 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
   })
 end
 
+bash "syncdb" do
+  user node["stalltalk"]["user"]
+  cwd node["stalltalk"]["project_path"]
+  code <<-EOH
+    source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
+    ./manage.py syncdb --noinput
+    EOH
+end
+
+bash "migrate" do
+  user node["stalltalk"]["user"]
+  cwd node["stalltalk"]["project_path"]
+  code <<-EOH
+    source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
+    ./manage.py migrate
+    EOH
+end
+
 
 include_recipe "nodejs"
 
