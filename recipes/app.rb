@@ -64,6 +64,7 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
     site_id: node["stalltalk"]["site_id"],
     allowed_hosts: node["stalltalk"]["allowed_hosts"],
     db_host: node["stalltalk"]["db_host"],
+    db_port: node["stalltalk"]["db_port"],
     db_name: node["stalltalk"]["db_name"],
     db_user: node["stalltalk"]["db_user"],
     db_pass: node["stalltalk"]["db_pass"].empty? ? Chef::EncryptedDataBagItem.load("stalltalk", "passwords")[node.chef_environment]["database"] : node["stalltalk"]["db_pass"],

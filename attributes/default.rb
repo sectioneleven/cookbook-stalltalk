@@ -23,10 +23,11 @@ default["stalltalk"]["domain_names"] = ["stalltalk.net"]
 # ENV
 default["stalltalk"]["site_id"] = 1
 default["stalltalk"]["allowed_hosts"] = nil
-default["stalltalk"]["db_host"] = ""
-default["stalltalk"]["db_name"] = ""
-default["stalltalk"]["db_user"] = ""
-default["stalltalk"]["db_pass"] = ""
+default["stalltalk"]["db_host"] = "127.0.0.1"
+default["stalltalk"]["db_port"] = "5432"
+default["stalltalk"]["db_name"] = "geotalk"
+default["stalltalk"]["db_user"] = "geotalk"
+default["stalltalk"]["db_pass"] = "g30t41k-p4ssw0rd"
 default["stalltalk"]["email_use_tls"] = "True"
 default["stalltalk"]["email_host"] = "smtp.gmail.com"
 default["stalltalk"]["email_host_user"] = "admin@sectioneleven.org"
