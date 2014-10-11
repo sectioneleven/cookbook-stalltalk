@@ -16,10 +16,14 @@ platforms:
 suites:
   - name: default
     run_list:
+      - role[stalltalk-database]
       - role[stalltalk-app-server]
       - role[geotalk-app-server]
       - role[ccu-app-server]
     attributes:
+      postgresql:
+        password:
+          postgres: test
     provisioner:
       solo_rb:
         environment: testing
