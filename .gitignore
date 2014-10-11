@@ -21,3 +21,6 @@ bin/*
 .kitchen.local.yml
 
 .chef/
+
+# test-kitchen-bash-completion list cache
+.kitchen.list.yml
