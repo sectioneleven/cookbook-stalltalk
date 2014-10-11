@@ -91,6 +91,18 @@ bash "syncdb" do
     EOH
 end
 
+bash "create superuser" do
+  user node["stalltalk"]["user"]
+  cwd node["stalltalk"]["project_path"]
+  code <<-EOH
+    source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
+    echo '
+    from django.contrib.auth.models import User
+    User.objects.create_superuser("#{node["stalltalk"]["admin_user"]}", "#{node["stalltalk"]["admin_email"]}", "#{node["stalltalk"]["admin_pass"]}")' | ./manage.py shell
+    EOH
+  not_if "echo 'from django.contrib.auth.models import User; len(User.objects.filter(pk=2)) > 0' | ./manage.py shell --plain | grep True"
+end
+
 bash "migrate" do
   user node["stalltalk"]["user"]
   cwd node["stalltalk"]["project_path"]

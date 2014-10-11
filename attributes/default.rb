@@ -39,3 +39,7 @@ default["stalltalk"]["rfp_notification_email_to"] = []
 default["stalltalk"]["property_notification_email_to"] = []
 default["stalltalk"]["celery_redis_host"] = "127.0.0.1"
 default["stalltalk"]["celery_redis_port"] = 6379
+
+default["stalltalk"]["admin_user"] = "admin"
+default["stalltalk"]["admin_pass"] = "4dm1n"
+default["stalltalk"]["admin_email"] = "admin@example.com"
