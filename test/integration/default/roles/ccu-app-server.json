@@ -3,14 +3,18 @@
   "description": "",
   "json_class": "Chef::Role",
   "default_attributes": {
-    "stalltalk": {
-      "project_name": "ccu",
-      "domain_names": ["consumerconnectionusa.com"],
-      "site_id": 3
-    }
+
   },
   "override_attributes": {
-
+    "stalltalk": {
+      "project_name": "ccu",
+      "domain_names": [
+        "consumerconnectionusa.com",
+        "www.consumerconnectionusa.com"
+      ],
+      "nginx_default_server?": true,
+      "site_id": 3
+    }
   },
   "chef_type": "role",
   "run_list": [

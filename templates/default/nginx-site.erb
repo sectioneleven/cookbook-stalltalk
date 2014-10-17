@@ -2,6 +2,14 @@ upstream <%= @upstream_name %> {
     server <%= "unix:" if @uwsgi_socket_type == "unix" %><%= @uwsgi_socket %>;
 }
 
+<% if @add_default_server_block %>
+server {
+    listen 80 default_server;
+    server_name _;
+    return 302 $scheme://<%= @server_names.first %>$request_uri
+}
+<% end %>
+
 server {
     listen 80;
     server_name <%= @server_names.join(" ")%>;

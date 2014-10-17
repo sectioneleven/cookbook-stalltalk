@@ -19,6 +19,7 @@ template "/etc/nginx/sites-available/#{node["stalltalk"]["project_name"]}" do
     upstream_name: node["stalltalk"]["project_name"],
     uwsgi_socket: node["stalltalk"]["uwsgi"]["socket"],
     uwsgi_socket_type: node["stalltalk"]["uwsgi"]["socket_type"],
+    add_default_server_block: node["stalltalk"]["nginx_default_server?"],
     server_names: node["stalltalk"]["domain_names"],
     access_log_file: "#{node["stalltalk"]["project_path"]}/access.log",
     error_log_file: "#{node["stalltalk"]["project_path"]}/error.log",
