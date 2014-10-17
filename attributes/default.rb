@@ -22,7 +22,7 @@ default["stalltalk"]["domain_names"] = ["stalltalk.net"]
 
 # ENV
 default["stalltalk"]["site_id"] = 1
-default["stalltalk"]["allowed_hosts"] = nil
+default["stalltalk"]["allowed_hosts"] = node["stalltalk"]["domain_names"]
 default["stalltalk"]["db_host"] = "127.0.0.1"
 default["stalltalk"]["db_port"] = "5432"
 default["stalltalk"]["db_name"] = "geotalk"
