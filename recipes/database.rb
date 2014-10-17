@@ -10,7 +10,7 @@ database_connection_info = {
 
 postgresql_database_user node["stalltalk"]["db_user"] do
   connection database_connection_info
-  password node["stalltalk"]["db_pass"].empty? ? Chef::EncryptedDataBagItem.load("stalltalk", "passwords")[node.chef_environment]["database"] : node["stalltalk"]["db_pass"]
+  password begin Chef::EncryptedDataBagItem.load("stalltalk", "passwords")[node.chef_environment]["database"] rescue node["stalltalk"]["db_pass"] end
   action :create
 end
 
