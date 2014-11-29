@@ -4,7 +4,7 @@ maintainer_email 'lemuelf@sectioneleven.org'
 license          'All rights reserved'
 description      'Installs/Configures stalltalk'
 long_description 'Installs/Configures stalltalk'
-version          '0.3.3'
+version          '0.3.4'
 
 depends 'user'
 depends 'ssh-util'
