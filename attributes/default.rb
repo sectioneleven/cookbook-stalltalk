@@ -21,6 +21,8 @@ default["stalltalk"]["uwsgi"]["socket_type"] = "unix"  # or tcp
 default["stalltalk"]["domain_names"] = ["stalltalk.net"]
 default["stalltalk"]["nginx_default_server?"] = false
 
+default["nginx"]["gzip_vary"] = "on"
+
 # ENV
 default["stalltalk"]["site_id"] = 1
 default["stalltalk"]["allowed_hosts"] = node["stalltalk"]["domain_names"]
