@@ -49,7 +49,6 @@ end
 bash "install requirements" do
   user node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
-  environment({"PIP_DOWNLOAD_CACHE" => "#{user_home}/.pip_download_cache"})
   code <<-EOH
     source #{node["stalltalk"]["virtualenv_path"]}/bin/activate
     pip install -r #{node["stalltalk"]["project_path"]}/requirements.txt --log=#{user_home}/pip.log
