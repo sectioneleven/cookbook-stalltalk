@@ -1,5 +1,5 @@
-default["stalltalk"]["user"] = "stalltalk"
-default["stalltalk"]["group"] = "stalltalk"
+default["stalltalk"]["user"] = "ubuntu"
+default["stalltalk"]["group"] = "ubuntu"
 
 # SSH
 default["stalltalk"]["authorized_keys"] = []
