@@ -78,6 +78,11 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
     property_notification_email_to: node["stalltalk"]["property_notification_email_to"],
     celery_redis_host: node["stalltalk"]["celery_redis_host"],
     celery_redis_port: node["stalltalk"]["celery_redis_port"],
+    default_file_storage: node["stalltalk"]["default_file_storage"],
+    staticfiles_storage: node["stalltalk"]["staticfiles_storage"],
+    aws_access_key_id: node["stalltalk"]["aws_access_key_id"],
+    aws_secret_access_key: node["stalltalk"]["aws_secret_access_key"],
+    aws_storage_bucket_name: node["stalltalk"]["aws_storage_bucket_name"],
   })
 end
 
