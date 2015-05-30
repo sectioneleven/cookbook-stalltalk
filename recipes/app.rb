@@ -54,6 +54,7 @@ template "#{node["stalltalk"]["project_path"]}/.env" do
   source "env.erb"
   owner node["stalltalk"]["user"]
   group node["stalltalk"]["group"]
+  environment({"HOME" => user_home})
   variables({
     site_id: node["stalltalk"]["site_id"],
     allowed_hosts: node["stalltalk"]["allowed_hosts"],
