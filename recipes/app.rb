@@ -37,11 +37,6 @@ git node["stalltalk"]["project_path"] do
   action :sync
 end
 
-directory "#{user_home}/.pip_download_cache" do
-  owner node["stalltalk"]["user"]
-  group node["stalltalk"]["group"]
-end
-
 %w[libpq-dev postgis postgresql-client libjpeg-dev libpng-dev].each do |pkg|
   package pkg
 end
