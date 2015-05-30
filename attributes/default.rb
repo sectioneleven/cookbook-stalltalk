@@ -42,6 +42,11 @@ default["stalltalk"]["rfp_notification_email_to"] = []
 default["stalltalk"]["property_notification_email_to"] = []
 default["stalltalk"]["celery_redis_host"] = "127.0.0.1"
 default["stalltalk"]["celery_redis_port"] = 6379
+default["stalltalk"]["default_file_storage"] = ""
+default["stalltalk"]["staticfiles_storage"] = ""
+default["stalltalk"]["aws_access_key_id"] = ""
+default["stalltalk"]["aws_secret_access_key"] = ""
+default["stalltalk"]["aws_storage_bucket_name"] = ""
 
 default["stalltalk"]["admin_user"] = "admin"
 default["stalltalk"]["admin_pass"] = "4dm1n"
